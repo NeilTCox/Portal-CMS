@@ -63,3 +63,18 @@ h1{
 #settings_form form{
   text-align: center;
 }
+
+#page_options{
+  background-color: LightGrey;
+  width: 600px;
+  height: 600px;
+  margin: auto;
+  margin-top: 50px;
+  border-radius: 50px;
+  border: 2px solid black;
+}
+
+#page_options form{
+  margin-left: 50px;
+  padding-top: 25px;
+}
