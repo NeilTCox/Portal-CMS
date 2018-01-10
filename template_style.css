@@ -1,3 +1,11 @@
+html{
+  font-family: georgia;
+}
+
+body{
+  margin: 0;
+}
+
 container{
   margin-left: 100px;
   margin-right: 100px;
@@ -12,29 +20,34 @@ container div{
   padding: 10px;
 }
 
-.grid-line{
-  border: 1px solid black;
-}
-
 header{
-  background-color: blue;
+  background-color: #001f3f;
+  height: 75px;
 }
 
 header nav{
   float: right;
-  background-color: yellow;
-  width: 50%;
-  margin-top: 8px;
+  margin-top: 25px;
+  margin-right: 50px;
 }
 
 header nav a{
-  margin: 30px;
+  color: white;
+  text-decoration: none;
+  font-weight: bold;
+  padding: 25px 30px;
+
 }
 
-
+header nav a:hover{
+  background-color: #004d99;
+}
 
 h1{
-  display: inline;
+  display: inline-block;
+  color: white;
+  margin-left: 50px;
+  //TODO fix top margin
 }
 
 .main_content{
