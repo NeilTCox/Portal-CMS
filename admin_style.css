@@ -1,0 +1,51 @@
+html{
+  font-family: georgia;
+}
+
+body{
+  margin: 0;
+}
+
+
+table{
+  margin: auto;
+  margin-top: 100px;
+}
+
+table, tr, td{
+  border: 2px solid black;
+  border-collapse: collapse;
+  padding: 5px;
+}
+
+th{
+  text-align: left;
+}
+
+header{
+  background-color: #001f3f;
+  height: 75px;
+}
+
+header nav{
+  float: right;
+  margin-top: 25px;
+  margin-right: 50px;
+}
+
+header nav a{
+  color: white;
+  text-decoration: none;
+  font-weight: bold;
+  padding: 25px 30px;
+}
+
+header nav a:hover{
+  background-color: #004d99;
+}
+
+h1{
+  display: inline-block;
+  color: white;
+  margin-left: 50px;
+}
