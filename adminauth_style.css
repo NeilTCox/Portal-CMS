@@ -1,3 +1,40 @@
+html{
+  font-family: georgia;
+}
+
+body{
+  margin: 0;
+}
+
+header{
+  background-color: #001f3f;
+  height: 75px;
+}
+
+header nav{
+  float: right;
+  margin-top: 25px;
+  margin-right: 50px;
+}
+
+header nav a{
+  color: white;
+  text-decoration: none;
+  font-weight: bold;
+  padding: 25px 30px;
+}
+
+header nav a:hover, #onpage{
+  background-color: #004d99;
+}
+
+h1{
+  display: inline-block;
+  color: white;
+  margin-left: 50px;
+  //TODO fix top margin
+}
+
 container{
   display: grid;
   grid-template-columns: 50% 50%;
