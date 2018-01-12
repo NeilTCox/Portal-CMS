@@ -35,7 +35,7 @@ h1{
   //TODO fix top margin
 }
 
-container{
+.page_content{
   display: grid;
   grid-template-columns: 50% 50%;
 }
