@@ -1,0 +1,28 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta charset="utf-8">
+    <link rel="stylesheet" href="/stylesheets/admin_style.css">
+    <title>Admin Dashboard</title>
+  </head>
+  <body>
+    <header>
+      <h1>Admin Dashboard</h1>
+      <nav>
+        <a href="admindash.html">Pages</a>
+        <a href="template.html">Logout</a>
+      </nav>
+    </header>
+
+    <div id="settings_form">
+      <form>
+        <h3>Set Login Creds</h3>
+        <label>Email</label>
+        <p><input type="email" name="regemail"></p>
+        <label>Password</label>
+        <p><input type="password" name="regpass"></p>
+        <button type="submit" name="save">Save</button>
+      </form>
+    </div>
+
+<% include includes/footer.ejs %>
