@@ -3,11 +3,11 @@
   <head>
     <meta charset="utf-8">
     <link rel="stylesheet" href="template_style.css">
-    <title>My Template</title>
+    <title> Home </title>
   </head>
   <body>
     <header>
-      <h1>My Template</h1>
+      <h1><%= main_header %></h1>
       <nav>
         <a href="#" id="onpage">Home</a>
         <a href="#">News</a>
@@ -18,26 +18,23 @@
 
     <div class="page_content">
       <div class="main_content">
-        <h2>Main Content</h2>
-        <p>Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry's standard dummy text ever since the 1500s, when an unknown printer took a galley of type and scrambled it to make a type specimen book. It has survived not only five centuries, but also the leap into electronic typesetting, remaining essentially unchanged. It was popularised in the 1960s with the release of Letraset sheets containing Lorem Ipsum passages, and more recently with desktop publishing software like Aldus PageMaker including versions of Lorem Ipsum.</p>
-        <p>Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry's standard dummy text ever since the 1500s, when an unknown printer took a galley of type and scrambled it to make a type specimen book. It has survived not only five centuries, but also the leap into electronic typesetting, remaining essentially unchanged.</p>
-        <p>Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry's standard dummy text ever since the 1500s, when an unknown printer took a galley of type and scrambled it to make a type specimen book. It has survived not only five centuries, but also the leap into electronic typesetting, remaining essentially unchanged. It was popularised in the 1960s with the release of Letraset sheets containing Lorem Ipsum passages,</p>
-        <p>Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry's standard dummy text ever since the 1500s, when an unknown printer took a galley of type and scrambled it to make a type specimen book. It has survived not only five centuries, but also the leap into electronic typesetting, remaining essentially unchanged. It was popularised in the 1960s with the release of Letraset sheets containing Lorem Ipsum passages, and more recently with desktop publishing software like Aldus PageMaker including versions of Lorem Ipsum.</p>
+        <h2><%= content_header %></h2>
+        <p><%= main_content %></p>
       </div>
 
       <div class="side_bar">
-        <h3>Fun Links</h3>
+        <h3><%= side_header %></h3>
         <ul>
-          <li><a href="#">Google</a></li>
-          <li><a href="#">Yahoo</a></li>
-          <li><a href="#">Apple</a></li>
+          <%= for(var i = 0; i<side_link_names.length; i++){ %>
+          <li><%= link_to(side_link_names[i], side_link_addresses[i]) %></li>
+          <%= } %>
         </ul>
 
       </div>
     </div>
 
     <footer>
-      <p>This is my template footer</p>
+      <p>Template made by Neil</p>
     </footer>
   </body>
 </html>
