@@ -57,3 +57,18 @@ h1{
 h1{
   text-align: center;
 }
+
+footer{
+  background-color: #202020;
+  position: fixed;
+  bottom: 0;
+  left: 0;
+  width: 100%;
+  text-align: center;
+  height: 50px;
+}
+
+footer p{
+  margin: 15px auto 0px auto;
+  color: white;
+}

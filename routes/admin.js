@@ -13,8 +13,8 @@ router.get('/addpage', function(req, res, next) {
   res.render('editpage', { title: 'Express' });
 });
 
-router.get('/editpage', function(req, res, next) {
-  res.render('editpage', { title: 'Express' });
+router.get('/settings', function(req, res, next) {
+  res.render('settings', { title: 'Express' });
 });
 
 module.exports = router;

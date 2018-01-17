@@ -9,32 +9,32 @@
     <header>
       <h1>Admin Authorization</h1>
       <nav>
-        <a href="template.html">Cancel</a>
+        <a href="/">Cancel</a>
       </nav>
     </header>
 
     <div class="page_content">
       <div class="form">
-        <form>
+        <form method="post" action="/auth/register">
           <h3>Registration</h3>
           <label>Email</label>
-          <p><input type="email" name="regemail"></p>
+          <p><input type="email" name="email" required></p>
           <label>Password</label>
-          <p><input type="password" name="regpass"></p>
+          <p><input type="password" name="password" required></p>
           <!-- CHANGE TO TYPE=SUBMIT -->
-          <a href="admindash.html"><button type="button" name="signup">Sign Up!</button></a>
+          <button type="submit" name="signup">Sign Up!</button>
         </form>
       </div>
 
-      <div class="form">
+      <div class="form" method="post" action="/auth/login">
         <form>
           <h3>Login</h3>
           <label>Email</label>
-          <p><input type="email" name="loginemail"></p>
+          <p><input type="email" name="email" required></p>
           <label>Password</label>
-          <p><input type="password" name="loginpass"></p>
+          <p><input type="password" name="password" required></p>
           <!-- CHANGE TO TYPE=SUBMIT -->
-          <a href="admindash.html"><button type="button" name="login">Login</button></a>
+          <button type="submit" name="login">Login</button>
         </form>
       </div>
     </div>
