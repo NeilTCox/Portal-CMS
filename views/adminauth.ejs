@@ -33,8 +33,12 @@
           <p><input type="email" name="email" required></p>
           <label>Password</label>
           <p><input type="password" name="password" required></p>
-          <!-- CHANGE TO TYPE=SUBMIT -->
           <button type="submit" name="login">Login</button>
+          <% if(typeof authError !== 'undefined'){ %>
+            <div class="auth-error">
+              <%= authError %>
+            </div>
+          <% } %>
         </form>
       </div>
     </div>

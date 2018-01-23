@@ -2,26 +2,13 @@ var express = require('express');
 var router = express.Router();
 var mongoose = require('mongoose');
 
-function toLower (str) {
-    return str.toLowerCase();
-}
+var usersModel = require('../models/users');
+var pagesModel = require('../models/pages');
 
-var userSchema = mongoose.Schema({
-  email: {type: String, set: toLower, unique: true},
-  password: String
-});
-var userModel = mongoose.model('users', userSchema);
 
-var pageSchema = mongoose.Schema({
-  title: String,
-  content: String,
-  url: String,
-  template: String,
-});
-var pageModel = mongoose.model('pages', pageSchema);
 
 router.post('/auth/register', function(req, res){
-  var newUser = new userModel({
+  var newUser = new usersModel({
     email: req.body.email,
     password: req.body.password,
   })
@@ -35,32 +22,31 @@ router.post('/auth/register', function(req, res){
 });
 
 router.post('/auth/login', function(req, res){
-  var attemptUser = new userModel({
-    email: req.body.email,
-    password: req.body.password,
-  })
-  userModel.findOne({ 'email': req.body.email }, function (err, password) {
+  usersModel.findOne({ 'email': req.body.email }, function (err, user) {
     if (err) {
       console.error(err);
       console.log('THERE HAS BEEN AN ERROR. USER NOT IN DB?')
       res.redirect('/auth');
-    }else if (password.toObject().password == req.body.password) {
+    }else if (user.password == req.body.password) {
+      req.session.user = user;
       console.log('SUCCESS!');
       res.redirect('/admin');
     }else {
       console.log('PASSWORD INCORRECT');
       res.redirect('/auth');
+      //res.render('/auth', {authError: 'Password incorrect!'})?
     }
   });
 
 });
 
 router.post('/admin/addpage', function(req, res){
-  var newPage = new pageModel({
+  var newPage = new pagesModel({
     title: req.body.title,
     content: req.body.main_content,
     url: req.body.url,
     template: req.body.template,
+    owner_id: req.user._id
   })
   newPage.save(function(err, user){
     if(err){
@@ -73,11 +59,27 @@ router.post('/admin/addpage', function(req, res){
 
 /* GET home page. */
 router.get('/', function(req, res, next) {
-  res.render('template', { title: 'Express' });
+  res.render('template');
 });
 
 router.get('/auth', function(req, res, next) {
-  res.render('adminauth', { title: 'Express' });
+  res.render('adminauth');
+});
+
+router.get('/:page', function(req, res, next){
+  pagesModel.findOne({url: req.params.page.trim()}, function(err, page){
+    if(err){
+      return res.send(err);
+    }
+    if (page) {
+      res.render('template', {
+        title: page.title,
+        main_content: page.content
+      });
+    }else{
+      next(err);
+    }
+  })
 });
 
 module.exports = router;

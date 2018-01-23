@@ -72,3 +72,11 @@ footer p{
   margin: 15px auto 0px auto;
   color: white;
 }
+
+.auth-error{
+  width: 200px;
+  height: 50px;
+  background: grey;
+  color: red;
+  border: 1px solid red;
+}

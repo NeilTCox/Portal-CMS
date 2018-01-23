@@ -11,7 +11,7 @@
       <nav>
         <a href="/admin/addpage">New Page</a>
         <a href="/admin/settings">Settings</a>
-        <a href="/">Logout</a>
+        <a href="/admin/logout">Logout</a>
       </nav>
     </header>
 
@@ -24,6 +24,17 @@
         </tr>
       </thead>
       <tbody>
+        <% for(var i = 0; i < pageList.length; i++){ %>
+          <tr>
+            <td> <a href="<%= pageList[i].url %>"><%= pageList[i].title %></a> </td>
+            <td>Example Time</td>
+            <td>
+              <button type="button" name="Edit">Edit</button>
+              <button type="button" name="Visible">Visible</button>
+              <button type="button" name="Delete">Delete</button>
+            </td>
+          </tr>
+        <% } %>
         <tr>
           <td><a href="template.html">Home</a></td>
           <td>Example Time</td>
