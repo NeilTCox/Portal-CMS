@@ -29,10 +29,10 @@
             <td> <a href="<%= pageList[i].url %>"><%= pageList[i].title %></a> </td>
             <td>Example Time</td>
             <td>
-              <form action="/admin/editpage" method="post">
+              <form action="/admin/editpage/<%= pageList[i]._id %>" method="get">
                 <button type="submit" name="Edit">Edit</button>
               </form>
-              <form action="/admin/visiblepage" method="post">
+              <form action="/admin/visiblepage/<%= pageList[i]._id %>" method="post">
                 <button type="submit" name="Visible">Visible</button>
               </form>
               <form action="/admin/deletepage/<%= pageList[i]._id %>" method="post">

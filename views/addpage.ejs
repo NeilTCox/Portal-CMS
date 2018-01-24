@@ -15,28 +15,28 @@
     </header>
 
     <div id="page_options">
-      <form method="post" action="/admin/editpage/<%= _id %>">
+      <form method="post" action="/admin/addpage">
         <h2>Page Options</h2>
 
           <label>Title:</label>
-          <p><input type="text" name="title" value=<%= title %> required></p>
+          <p><input type="text" name="title" value="" required></p>
           <label>Main Content:</label>
-          <p><textarea name="main_content" cols="65" rows="10"><%= main_content %></textarea></p>
+          <p><textarea name="main_content" cols="65" rows="10"></textarea></p>
           <label>URL:</label>
-          <p><input type="text" name="url" value="<%= url %>" required></p>
+          <p><input type="text" name="url" value="" required></p>
           <label>Visible?</label>
-          <p><input type="checkbox" name="visible" <%= visible %>></p>
+          <p><input type="checkbox" name="visible" checked></p>
           <label>Template:</label>
           <p>
             <select id="template_selector" name="template">
-              <option value="none" disabled>---</option>
-              <option value="Blue" <%= blue_selected %>>Blue</option>
-              <option value="Green"<%= green_selected %>>Green</option>
-              <option value="Red" <%= red_selected %>>Red</option>
+              <option value="none" disabled selected>---</option>
+              <option value="Blue">Blue</option>
+              <option value="Green">Green</option>
+              <option value="Red">Red</option>
             </select>
           </p>
 
-          <button type="submit" name="Save">Save</button>
+          <button type="submit" name="Save">Add</button>
       </form>
     </div>
 

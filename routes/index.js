@@ -40,24 +40,6 @@ router.post('/auth/login', function(req, res){
 
 });
 
-router.post('/admin/addpage', function(req, res){
-  var newPage = new pagesModel({
-    title: req.body.title,
-    content: req.body.main_content,
-    url: req.body.url,
-    template: req.body.template,
-    owner_id: req.user._id,
-    visible: req.body.visible
-  })
-  newPage.save(function(err, user){
-    if(err){
-      res.redirect('/admin/addpage');
-      return console.error(err);
-    }
-    res.redirect('/admin');
-  });
-});
-
 /* GET home page. */
 router.get('/', function(req, res, next) {
   res.render('template');
@@ -72,7 +54,7 @@ router.get('/:page', function(req, res, next){
     if(err){
       return res.send(err);
     }
-    if (page) {
+    if (page && page.visible) {
       res.render('template', {
         title: page.title,
         main_content: page.content
