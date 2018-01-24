@@ -5,7 +5,8 @@ var schema = mongoose.Schema({
   content: String,
   url: String,
   template: String,
-  owner_id: Object
+  owner_id: Object,
+  visible: Boolean
 });
 
 module.exports = mongoose.model('pages', schema);

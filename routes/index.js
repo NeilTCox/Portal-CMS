@@ -46,7 +46,8 @@ router.post('/admin/addpage', function(req, res){
     content: req.body.main_content,
     url: req.body.url,
     template: req.body.template,
-    owner_id: req.user._id
+    owner_id: req.user._id,
+    visible: req.body.visible
   })
   newPage.save(function(err, user){
     if(err){
