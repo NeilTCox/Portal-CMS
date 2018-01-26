@@ -8,7 +8,6 @@ var mongoose = require('mongoose');
 var session = require('client-sessions');
 
 
-var users = require('./routes/users');
 var admin = require('./routes/admin')
 var index = require('./routes/index');
 //var admin = require('.routes/auth')
@@ -71,7 +70,6 @@ function requireLogin (req, res, next) {
   }
 };
 
-app.use('/users', users);
 app.use('/admin', requireLogin, admin)
 app.use('/', index);
 //app.use('/auth', auth)

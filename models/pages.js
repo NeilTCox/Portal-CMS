@@ -10,7 +10,8 @@ var schema = mongoose.Schema({
   url: {type: String, set: toLower, unique: true},
   template: String,
   owner_id: Object,
-  visible: Boolean
+  visible: Boolean,
+  updated: String
 });
 
 module.exports = mongoose.model('pages', schema);

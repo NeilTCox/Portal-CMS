@@ -1,0 +1,33 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8">
+    <link rel="stylesheet" href="/stylesheets/template_style.css">
+    <title>Neil's CMS</title>
+  </head>
+  <body>
+    <header>
+      <h1>Neil's CMS</h1>
+      <nav>
+        <a href="/" id="onpage">Home</a>
+        <a href="/auth">Admin</a>
+      </nav>
+    </header>
+
+    <table>
+      <thead>
+        <tr>
+          <th>User Pages</th>
+        </tr>
+      </thead>
+      <tbody>
+        <% for(var i = 0; i < pageList.length; i++){ %>
+          <tr>
+            <td><a href="<%= pageList[i].url %>"><%= pageList[i].title %></a></td>
+          </tr>
+        <% } %>
+      </tbody>
+
+    </div>
+
+<% include includes/footer.ejs %>

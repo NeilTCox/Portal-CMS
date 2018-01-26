@@ -12,9 +12,27 @@ function requireLogin (req, res, next) {
   }
 };
 
-router.get('/auth', function(req, res, next) {
-  res.render('adminauth');
-});
+function getDateTime() {
+
+    var date = new Date();
+
+    var hour = date.getHours();
+    hour = (hour < 10 ? "0" : "") + hour;
+
+    var min  = date.getMinutes();
+    min = (min < 10 ? "0" : "") + min;
+
+    var year = date.getFullYear();
+
+    var month = date.getMonth() + 1;
+    month = (month < 10 ? "0" : "") + month;
+
+    var day  = date.getDate();
+    day = (day < 10 ? "0" : "") + day;
+
+    return month + "/" + day + "/" + year + " at " + hour + ":" + min;
+
+}
 
 router.get('/', requireLogin, function(req, res, next) {
   pagesModel.find({owner_id: req.user._id}, function(err, pages){
@@ -41,14 +59,15 @@ router.post('/addpage', function(req, res){
     url: req.body.url,
     template: req.body.template,
     owner_id: req.user._id,
-    visible: req.body.visible
+    visible: req.body.visible,
+    updated: getDateTime()
   })
   newPage.save(function(err, user){
     if(err){
-      res.redirect('/admin/addpage');
-      return console.error(err);
+      res.render('addpage', {urlError: 'URL Taken'});
+    }else {
+      res.redirect('/admin');
     }
-    res.redirect('/admin');
   });
 });
 
@@ -56,11 +75,19 @@ router.get('/settings', requireLogin, function(req, res) {
   res.render('settings');
 });
 
-
+router.post('/settings/set', function(req, res){
+  usersModel.findOneAndUpdate({'email': req.user.email},
+    {$set: {'password': req.body.password, 'email': req.body.email}}, function(err, user){
+      if (err) {
+        console.error(err);
+      }
+    });
+    res.redirect('/admin');
+})
 
 router.get('/logout', function(req, res){
   req.session.reset();
-  res.redirect('/auth');
+  res.redirect('/');
 })
 
 router.get('/editpage/:_id', function(req, res) {
@@ -105,13 +132,14 @@ router.post('/editpage/:_id', function(req, res) {
       content: req.body.main_content,
       url: req.body.url,
       template: req.body.template,
-      visible: req.body.visible
+      visible: req.body.visible,
+      updated: getDateTime()
   }}, function(err) {
-        if (err) {
-          // for if duplicate URL
-          // show h1 error if url already taken (render), same as wrong password
-        }
-        res.redirect('/admin');
+    if(err){
+      res.render('addpage', {urlError: 'URL Taken'});
+    }else {
+      res.redirect('/admin');
+    }
   });
 })
 
@@ -148,15 +176,5 @@ router.post('/deletepage/:_id', function(req, res){
   });
   res.redirect('/admin');
 });
-
-router.post('/settings/set', function(req, res){
-  usersModel.findOneAndUpdate({'email': req.user.email},
-    {$set: {'password': req.body.password, 'email': req.body.email}}, function(err, user){
-      if (err) {
-        console.error(err);
-      }
-    });
-    res.redirect('/admin');
-})
 
 module.exports = router;

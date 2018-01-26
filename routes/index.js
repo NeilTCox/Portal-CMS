@@ -5,7 +5,23 @@ var mongoose = require('mongoose');
 var usersModel = require('../models/users');
 var pagesModel = require('../models/pages');
 
+router.get('/', function(req, res, next) {
+  pagesModel.find(function(err, pages){
+    if (err) {
+      return res.send(err);
+    } else if (pages) {
+      res.render('home', {
+        pageList: pages
+      });
+    }else {
+      next(err);
+    }
+  })
+});
 
+router.get('/auth', function(req, res, next) {
+  res.render('adminauth');
+});
 
 router.post('/auth/register', function(req, res){
   var newUser = new usersModel({
@@ -29,24 +45,12 @@ router.post('/auth/login', function(req, res){
       res.redirect('/auth');
     }else if (user.password == req.body.password) {
       req.session.user = user;
-      console.log('SUCCESS!');
       res.redirect('/admin');
     }else {
-      console.log('PASSWORD INCORRECT');
-      res.redirect('/auth');
-      //res.render('/auth', {authError: 'Password incorrect!'})?
+      res.render('adminauth', {authError: 'Incorrect Password'});
     }
   });
 
-});
-
-/* GET home page. */
-router.get('/', function(req, res, next) {
-  res.render('template');
-});
-
-router.get('/auth', function(req, res, next) {
-  res.render('adminauth');
 });
 
 router.get('/:page', function(req, res, next){

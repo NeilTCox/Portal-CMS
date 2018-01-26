@@ -10,7 +10,7 @@
       <h1>Admin Dashboard</h1>
       <nav>
         <a href="/admin/settings">Settings</a>
-        <a href="/auth">Logout</a>
+        <a href="/admin/logout">Logout</a>
       </nav>
     </header>
 
@@ -22,6 +22,11 @@
           <p><input type="text" name="title" value=<%= title %> required></p>
           <label>Main Content:</label>
           <p><textarea name="main_content" cols="65" rows="10"><%= main_content %></textarea></p>
+          <% if(typeof urlError !== 'undefined'){ %>
+            <div class="url-error">
+              <h3><%= urlError %></h3>
+            </div>
+          <% } %>
           <label>URL:</label>
           <p><input type="text" name="url" value="<%= url %>" required></p>
           <label>Visible?</label>
