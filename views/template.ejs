@@ -1,7 +1,5 @@
-<!DOCTYPE html>
-<html lang="en">
-  <head>
-    <meta charset="utf-8">
+<% include includes/header.ejs %>
+    <link rel="stylesheet" type="text/css" href="/assets/content-tools.min.css">
     <link rel="stylesheet" href="/stylesheets/template_style.css">
     <title><%= title %></title>
   </head>
@@ -15,9 +13,8 @@
     </header>
 
     <div class="page_content">
-      <div class="main_content">
-        <h2>Main Content</h2>
-        <p><%= main_content %></p>
+      <div data-editable class="main_content" data-name="main_content">
+        <%- main_content %>
       </div>
 
       <div class="side_bar">
@@ -30,5 +27,8 @@
 
       </div>
     </div>
+    <script>var pageId = "<%= _id %>"</script>
+    <script src="/assets/content-tools.min.js"></script>
+    <script src="/assets/editor.js"></script>
 
 <% include includes/footer.ejs %>

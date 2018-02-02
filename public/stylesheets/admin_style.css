@@ -69,15 +69,27 @@ h1{
   text-align: center;
 }
 
+.unclickable{
+  position: fixed;
+  top: 0;
+  bottom: 0;
+  left: 0;
+  right: 0;
+  background-color: rgba(0,0,0,.5);
+}
+
 #page_options{
-  background-color: LightGrey;
+  background-color: #fffff0;
+  top: 0;
+  left: 50%;
   width: 600px;
   height: 650px;
-  margin: auto;
-  margin-top: 25px;
+  margin-top: 100px;
   margin-bottom: 75px;
+  margin-left: -300px;
   border-radius: 50px;
   border: 2px solid black;
+  position: fixed;
 }
 
 #page_options form{
@@ -110,4 +122,12 @@ footer{
 footer p{
   margin: 15px auto 0px auto;
   color: white;
+}
+
+.hidden{
+  visibility: hidden;
+}
+
+.line-through{
+  text-decoration: line-through;
 }

@@ -1,7 +1,4 @@
-<!DOCTYPE html>
-<html>
-  <head>
-    <meta charset="utf-8">
+<% include includes/header.ejs %>
     <link rel="stylesheet" href="/stylesheets/admin_style.css">
     <title>Admin Dashboard</title>
   </head>
@@ -9,13 +6,13 @@
     <header>
       <h1>Admin Dashboard</h1>
       <nav>
-        <a href="/admin/addpage">New Page</a>
+        <a href="#" id="addpage-link">New Page</a>
         <a href="/admin/settings">Settings</a>
         <a href="/admin/logout">Logout</a>
       </nav>
     </header>
 
-    <table>
+    <table id="page_table">
       <thead>
         <tr>
           <th>Title</th>
@@ -32,17 +29,151 @@
               <form action="/admin/editpage/<%= pageList[i]._id %>" method="get">
                 <button type="submit" name="Edit">Edit</button>
               </form>
-              <form action="/admin/visiblepage/<%= pageList[i]._id %>" method="post">
-                <button type="submit" name="Visible">Visible</button>
-              </form>
-              <form action="/admin/deletepage/<%= pageList[i]._id %>" method="post">
-                <button type="submit" name="Delete">Delete</button>
-              </form>
+              <% if(pageList[i].visible == true){ %>
+                <button name="Visible" data-page-id="<%= pageList[i]._id %>" class="btn-visible">Visible</button>
+              <% }else{ %>
+                <button name="Visible" data-page-id="<%= pageList[i]._id %>" class="btn-visible line-through">Visible</button>
+              <% } %>
+              <button name="Delete" class="btn-delete" data-page-id="<%= pageList[i]._id %>">Delete</button>
             </td>
           </tr>
         <% } %>
       </tbody>
-
     </table>
+
+    <div class="unclickable hidden">
+      <div id="page_options">
+        <form id="addpage_form">
+          <h2>Page Options</h2>
+
+            <label>Title:</label>
+            <p><input type="text" name="title" value="" required></p>
+            <label>Main Content:</label>
+            <input type="hidden" name="main_content">
+            <div id="editor">
+
+            </div>
+            <!-- <label>Main Content:</label> -->
+            <!-- <p><textarea name="main_content" cols="65" rows="10"></textarea></p> -->
+            <% if(typeof urlError !== 'undefined'){ %>
+              <div class="url-error">
+                <h3><%= urlError %></h3>
+              </div>
+            <% } %>
+            <label>URL:</label>
+            <p><input type="text" name="url" value="" required></p>
+            <label>Visible?</label>
+            <p><input type="checkbox" name="visible" checked></p>
+            <label>Template:</label>
+            <p>
+              <select id="template_selector" name="template">
+                <option value="none" disabled selected>---</option>
+                <option value="Blue">Blue</option>
+                <option value="Green">Green</option>
+                <option value="Red">Red</option>
+              </select>
+            </p>
+            <button type="submit" name="Save" id="addpage-save">Save</button>
+            <button type="button" name="cancel" id="addpage-cancel">Cancel</button>
+        </form>
+      </div>
+    </div>
+
+    <script>
+      var quill = new Quill('#editor', {
+        theme: 'snow'
+      });
+
+      $(function() {
+        $('#page_table').on('click', '.btn-delete', function(event) {
+          var button = $(this);
+          var pageId = $(this).attr('data-page-id');
+          $.ajax({
+            method: 'DELETE',
+            url: `admin/page/${pageId}`
+          }).done(function(response){
+            button.parent().parent().remove();
+          });
+        });
+
+        $('#page_table').on('click', '.btn-visible', function() {
+          var button = $(this);
+          var pageId = $(this).attr('data-page-id');
+          $.ajax({
+            method: 'POST',
+            url: `admin/visiblepage/${pageId}`
+          }).done(function(response) {
+            if (response) {
+              button.removeClass('line-through');
+            }else {
+              button.addClass('line-through');
+            }
+          });
+        })
+
+        $('nav').on('click', '#addpage-link', function(event) {
+          $('.unclickable').removeClass('hidden');
+        });
+
+        $('#addpage-cancel').click(function(event) {
+          $('.unclickable').addClass('hidden');
+        });
+
+        $('#page_options').on('click', '#addpage-save', function() {
+          var main_content = document.querySelector('input[name=main_content]');
+          var content_string = quill.root.innerHTML;
+          content_string = content_string.replace(/^"(.*)"$/, '$1');
+          main_content.value = content_string;
+          var form_data = $('#addpage_form').serializeArray();
+          $.ajax({
+            method: 'POST',
+            url: 'admin/addpage',
+            data: form_data
+          }).done(function(response) {
+            if(response.visible){
+              $('#page_table').append(
+                `<tr>
+                  <td> <a href=${response.url}>${response.title}</a> </td>
+                  <td>${response.updated}</td>
+                  <td>
+                    <form action="/admin/editpage/${response._id}" method="get">
+                      <button type="submit" name="Edit">Edit</button>
+                    </form>
+                    <form action="/admin/visiblepage/${response._id}" method="post">
+                      <button type="submit" name="Visible">Visible</button>
+                    </form>
+                    <button name="Delete" class="btn-delete" data-page-id="${response._id}">Delete</button>
+                  </td>
+                </tr>`
+              );
+            }else{
+              $('#page_table').append(
+                `<tr>
+                  <td> <a href=${response.url}>${response.title}</a> </td>
+                  <td>${response.updated}</td>
+                  <td>
+                    <form action="/admin/editpage/${response._id}" method="get">
+                      <button type="submit" name="Edit">Edit</button>
+                    </form>
+                    <form action="/admin/visiblepage/${response._id}" method="post">
+                      <button type="submit" name="Visible" class="line-through">Visible</button>
+                    </form>
+                    <button name="Delete" class="btn-delete" data-page-id="${response._id}">Delete</button>
+                  </td>
+                </tr>`
+              );
+            }
+            $('.unclickable').addClass('hidden');
+            $('#addpage_form')[0].reset();
+          }).fail(function() {
+            alert('i failed you. Duplicate URL??');
+          });
+          event.preventDefault();
+        });
+
+      });
+
+
+    </script>
 
 <% include includes/footer.ejs %>

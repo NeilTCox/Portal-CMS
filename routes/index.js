@@ -61,7 +61,8 @@ router.get('/:page', function(req, res, next){
     if (page && page.visible) {
       res.render('template', {
         title: page.title,
-        main_content: page.content
+        main_content: page.content,
+        _id: page._id
       });
     }else{
       next(err);

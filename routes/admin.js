@@ -48,9 +48,9 @@ router.get('/', requireLogin, function(req, res, next) {
   })
 });
 
-router.get('/addpage', requireLogin, function(req, res) {
-  res.render('addpage');
-});
+// router.get('/addpage', requireLogin, function(req, res) {
+//   res.render('addpage');
+// });
 
 router.post('/addpage', function(req, res){
   var newPage = new pagesModel({
@@ -64,9 +64,11 @@ router.post('/addpage', function(req, res){
   })
   newPage.save(function(err, user){
     if(err){
-      res.render('addpage', {urlError: 'URL Taken'});
+      console.error(err);
+      // DISPLAY URL TAKEN ERROR
+      //res.render('addpage', {urlError: 'URL Taken'});
     }else {
-      res.redirect('/admin');
+      res.send(newPage);
     }
   });
 });
@@ -128,20 +130,17 @@ router.post('/editpage/:_id', function(req, res) {
   pagesModel.findOneAndUpdate({_id: req.params._id},
   {$set:
     {
-      title: req.body.title,
       content: req.body.main_content,
-      url: req.body.url,
-      template: req.body.template,
-      visible: req.body.visible,
       updated: getDateTime()
   }}, function(err) {
     if(err){
+      //outdated
       res.render('addpage', {urlError: 'URL Taken'});
     }else {
-      res.redirect('/admin');
+      res.end();
     }
   });
-})
+});
 
 router.post('/visiblepage/:_id', function(req, res){
   console.log(req.params._id)
@@ -151,6 +150,8 @@ router.post('/visiblepage/:_id', function(req, res){
         {$set: {'visible': false}}, function(err, page) {
           if (err) {
             console.error(err);
+          }else {
+            res.send(false);
           }
         });
     }else {
@@ -158,23 +159,21 @@ router.post('/visiblepage/:_id', function(req, res){
         {$set: {'visible': true}}, function(err, page) {
           if (err) {
             console.error(err);
+          }else{
+            res.send(true);
           }
         });
     }
   });
-  res.redirect('/admin');
 });
 
-router.post('/deletepage/:_id', function(req, res){
-  console.log(req.params._id);
-  pagesModel.remove({_id: req.params._id}, function(err){
+router.delete('/page/:_id', function(req, res, next){
+  pagesModel.remove({_id: req.params._id}, function(err) {
     if (err) {
-      console.error(err);
-    }else {
-      console.log('REMOVED!!!!');
+      return console.error(err);
     }
   });
-  res.redirect('/admin');
+  res.end();
 });
 
 module.exports = router;
