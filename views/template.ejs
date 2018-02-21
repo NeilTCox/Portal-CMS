@@ -21,18 +21,178 @@
         <%- main_content %>
       </div>
 
-      <div class="side_bar">
+      <div class="side_bar" id="side-bar">
         <h3>Fun Links</h3>
         <ul>
           <li><a href="#">Google</a></li>
           <li><a href="#">Yahoo</a></li>
           <li><a href="#">Apple</a></li>
         </ul>
-
+        <button id="share-button" type="button" class="btn btn-primary" data-toggle="modal" data-target="#share-modal">SHARE</button>
       </div>
     </div>
+
+    <div class="modal fade" id="share-modal" tabindex="-1" role="dialog" aria-hidden="true">
+      <div class="modal-dialog" role="document">
+        <div class="modal-content">
+          <div class="modal-header">
+            <h5 class="modal-title">clonner</h5>
+            <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                <span aria-hidden="true">&times;</span>
+              </button>
+          </div>
+          <div class="modal-body">
+            <form>
+              <div class="modal-footer">
+                <button type="button" class="btn btn-outline-secondary" data-dismiss="modal" data-toggle="modal" data-target="#login-modal">Login</button>
+                <button type="button" class="btn btn-outline-success" data-dismiss="modal" data-toggle="modal" data-target="#join-modal">Join</button>
+              </div>
+            </form>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <div class="modal fade" id="login-modal" tabindex="-1" role="dialog" aria-hidden="true">
+      <div class="modal-dialog" role="document">
+        <div class="modal-content">
+          <div class="modal-header">
+            <h5 class="modal-title">Login</h5>
+            <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                <span aria-hidden="true">&times;</span>
+              </button>
+          </div>
+          <div class="modal-body">
+            <form id="login-form">
+              <div class="form-group">
+                <label for="login-form-username">Username:</label>
+                <input class="form-control" id="login-form-username" type="text" name="login_username" placeholder="Username" required>
+              </div>
+              <div class="form-group">
+                <label for="login-form-password">Password:</label>
+                <input class="form-control" id="login-form-password" type="password" name="login_password" placeholder="Password" required>
+              </div>
+              <div class="modal-footer">
+                <button type="button" class="btn btn-outline-secondary" data-dismiss="modal">Cancel</button>
+                <button id="login-button" type="button" class="btn btn-outline-success" data-dismiss="modal" data-toggle="modal" data-target="#post-modal">Login</button>
+              </div>
+            </form>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <div class="modal fade" id="join-modal" tabindex="-1" role="dialog" aria-hidden="true">
+      <div class="modal-dialog" role="document">
+        <div class="modal-content">
+          <div class="modal-header">
+            <h5 class="modal-title">Join</h5>
+            <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                <span aria-hidden="true">&times;</span>
+              </button>
+          </div>
+          <div class="modal-body">
+            <form id="join-form">
+              <div class="form-group">
+                <label for="join-form-username">Username:</label>
+                <input class="form-control" id="join-form-username" type="text" name="join_username" placeholder="Username" required>
+              </div>
+              <div class="form-group">
+                <label for="join-form-password">Password:</label>
+                <input class="form-control" id="join-form-password" type="password" name="join_password" placeholder="Password" required>
+              </div>
+              <div class="modal-footer">
+                <button type="button" class="btn btn-outline-secondary" data-dismiss="modal">Cancel</button>
+                <button id="join-button" type="button" class="btn btn-outline-success" data-dismiss="modal" data-toggle="modal" data-target="#login-modal">Join</button>
+              </div>
+            </form>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <div class="modal fade" id="post-modal" tabindex="-1" role="dialog" aria-hidden="true">
+      <div class="modal-dialog" role="document">
+        <div class="modal-content">
+          <div class="modal-header">
+            <h5 class="modal-title">Post</h5>
+            <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                <span aria-hidden="true">&times;</span>
+              </button>
+          </div>
+          <div class="modal-body">
+            <form id="post-form">
+              <div class="form-group">
+                <textarea class="form-control" id="post-text" type="text" name="post_content" required></textarea>
+              </div>
+              <div class="modal-footer">
+                <button type="button" class="btn btn-outline-secondary" data-dismiss="modal">Cancel</button>
+                <button id="post-button" type="button" class="btn btn-outline-success" data-dismiss="modal">Post</button>
+              </div>
+            </form>
+          </div>
+        </div>
+      </div>
+    </div>
+
     <script>
       var pageId = "<%= _id %>"
+      var pageURL = "<%= url %>"
+    </script>
+    <script>
+      $(function() {
+        $('#login-modal').on('click', '#login-button', function() {
+          var form_data = $('#login-form').serializeArray();
+          $.ajax({
+            type: 'POST',
+            url: 'http://localhost:3000/user/login',
+            dataType: 'multipart/form-data',
+            data: form_data,
+            xhrFields: {
+              withCredentials: true
+            }
+          }).done(function(response) {
+
+          }).fail(function(response) {
+            $('#post-text').val(`<a href="http://localhost:3001/${pageURL}"><%= title %></a>`)
+          });
+        });
+
+        $('#join-modal').on('click', '#join-button', function() {
+          var form_data = $('#join-form').serializeArray();
+          $.ajax({
+            type: 'POST',
+            url: 'http://localhost:3000/user/join',
+            dataType: 'multipart/form-data',
+            data: form_data,
+            xhrFields: {
+              withCredentials: true
+            }
+          }).done(function(response) {
+
+          }).fail(function(response) {
+
+          });
+        });
+
+        $('#post-modal').on('click', '#post-button', function() {
+          var form_data = $('#post-form').serializeArray();
+          $.ajax({
+            type: 'POST',
+            url: 'http://localhost:3000/post',
+            dataType: 'multipart/form-data',
+            data: form_data,
+            xhrFields: {
+              withCredentials: true
+            }
+          }).done(function(response) {
+
+          }).fail(function(response) {
+
+          });
+        });
+
+      });
     </script>
 
     <% include includes/footer.ejs %>

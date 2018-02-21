@@ -76,7 +76,8 @@ router.get('/:page', function(req, res, next) {
       res.render('template', {
         title: page.title,
         main_content: page.content,
-        _id: page._id
+        _id: page._id,
+        url: page.url
       });
     } else {
       next(err);

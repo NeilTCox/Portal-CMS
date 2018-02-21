@@ -114,6 +114,11 @@ footer p {
   visibility: hidden;
 }
 
+#share-button {
+  margin-top: 275px;
+  margin-left: 175px;
+}
+
 /* CONTENTTOOLS CSS */
 
 /* Alignment styles for images, videos and iframes in editable regions */
