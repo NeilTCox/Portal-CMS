@@ -1,13 +1,28 @@
 <% include includes/header.ejs %>
-    <link rel="stylesheet" href="/stylesheets/template_style.css">
-    <title>Neil's CMS</title>
+  <link rel="stylesheet" href="/stylesheets/template_style.css">
+  <title>Neil's CMS</title>
   </head>
+
   <body>
     <header>
       <h1>Neil's CMS</h1>
       <nav>
         <a href="/" id="onpage">Home</a>
         <a href="/auth">Admin</a>
+        <a id="pages-link">Pages</a>
+        <ul id="pages-ul" class="hidden">
+          <% for(var i = 0; i < pageList.length; i++){ %>
+            <%if(pageList[i].visible === true){%>
+              <li>
+                <a href="<%= pageList[i].url %>">
+                  <%= pageList[i].title %>
+                </a>
+                <% } %>
+
+
+              </li>
+              <% } %>
+        </ul>
       </nav>
     </header>
 
@@ -20,11 +35,35 @@
       <tbody>
         <% for(var i = 0; i < pageList.length; i++){ %>
           <tr>
-            <td><a href="<%= pageList[i].url %>"><%= pageList[i].title %></a></td>
+            <%if(pageList[i].visible === true){%>
+              <td>
+                <a href="<%= pageList[i].url %>">
+                  <%= pageList[i].title %>
+                </a>
+              </td>
+              <% } %>
+
+
           </tr>
-        <% } %>
+          <% } %>
       </tbody>
 
-    </div>
+      </div>
 
-<% include includes/footer.ejs %>
+      <script>
+        $(function() {
+          var i = 0;
+          $('#pages-link').click(function() {
+            if (i === 0) {
+              $('#pages-ul').removeClass('hidden');
+              i = 1;
+            } else {
+              $('#pages-ul').addClass('hidden');
+              i = 0;
+            }
+
+          });
+        });
+      </script>
+
+      <% include includes/footer.ejs %>

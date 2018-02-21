@@ -1,19 +1,23 @@
 <% include includes/header.ejs %>
-    <link rel="stylesheet" type="text/css" href="/assets/content-tools.min.css">
-    <link rel="stylesheet" href="/stylesheets/template_style.css">
-    <title><%= title %></title>
+  <link rel="stylesheet" type="text/css" href="/assets/content-tools.min.css">
+  <link rel="stylesheet" href="/stylesheets/template_style.css">
+  <title>
+    <%= title %>
+  </title>
   </head>
+
   <body>
     <header>
       <h1><%= title %></h1>
       <nav>
         <a href="/">Home</a>
+        <a href="/">Pages</a>
         <a href="/auth">Admin</a>
       </nav>
     </header>
 
     <div class="page_content">
-      <div data-editable class="main_content" data-name="main_content">
+      <div class="main_content" data-name="main_content">
         <%- main_content %>
       </div>
 
@@ -27,8 +31,8 @@
 
       </div>
     </div>
-    <script>var pageId = "<%= _id %>"</script>
-    <script src="/assets/content-tools.min.js"></script>
-    <script src="/assets/editor.js"></script>
+    <script>
+      var pageId = "<%= _id %>"
+    </script>
 
-<% include includes/footer.ejs %>
+    <% include includes/footer.ejs %>

@@ -1,7 +1,8 @@
 <% include includes/header.ejs %>
-    <link rel="stylesheet" href="/stylesheets/admin_style.css">
-    <title>Admin Dashboard</title>
+  <link rel="stylesheet" href="/stylesheets/admin_style.css">
+  <title>Admin Dashboard</title>
   </head>
+
   <body>
     <header>
       <h1>Admin Dashboard</h1>
@@ -16,30 +17,30 @@
       <form method="post" action="/admin/addpage">
         <h2>Page Options</h2>
 
-          <label>Title:</label>
-          <p><input type="text" name="title" value="" required></p>
-          <label>Main Content:</label>
-          <p><textarea name="main_content" cols="65" rows="10"></textarea></p>
-          <% if(typeof urlError !== 'undefined'){ %>
-            <div class="url-error">
-              <h3><%= urlError %></h3>
-            </div>
+        <label>Title:</label>
+        <p><input type="text" name="title" value="" required></p>
+        <label>Main Content:</label>
+        <p><textarea name="main_content" cols="65" rows="10"></textarea></p>
+        <% if(typeof urlError !== 'undefined'){ %>
+          <div class="url-error">
+            <h3><%= urlError %></h3>
+          </div>
           <% } %>
-          <label>URL:</label>
-          <p><input type="text" name="url" value="" required></p>
-          <label>Visible?</label>
-          <p><input type="checkbox" name="visible" checked></p>
-          <label>Template:</label>
-          <p>
-            <select id="template_selector" name="template">
+            <label>URL:</label>
+            <p><input type="text" name="url" value="" required></p>
+            <label>Visible?</label>
+            <p><input type="checkbox" name="visible" checked></p>
+            <label>Template:</label>
+            <p>
+              <select id="template_selector" name="template">
               <option value="none" disabled selected>---</option>
               <option value="Blue">Blue</option>
               <option value="Green">Green</option>
               <option value="Red">Red</option>
             </select>
-          </p>
-          <button type="submit" name="Save">Add</button>
+            </p>
+            <button type="submit" name="Save">Add</button>
       </form>
     </div>
 
-<% include includes/footer.ejs %>
+    <% include includes/footer.ejs %>

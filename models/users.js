@@ -1,11 +1,15 @@
 var mongoose = require('mongoose');
 
-function toLower (str) {
-    return str.toLowerCase();
+function toLower(str) {
+  return str.toLowerCase();
 }
 
 var schema = mongoose.Schema({
-  email: {type: String, set: toLower, unique: true},
+  email: {
+    type: String,
+    set: toLower,
+    unique: true
+  },
   password: String,
 });
 

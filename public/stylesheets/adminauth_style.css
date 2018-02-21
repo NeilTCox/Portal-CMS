@@ -1,46 +1,45 @@
-html{
+html {
   font-family: georgia;
 }
 
-body{
+body {
   margin: 0;
 }
 
-header{
+header {
   background-color: #001f3f;
   height: 75px;
 }
 
-header nav{
+header nav {
   float: right;
   margin-top: 25px;
   margin-right: 50px;
 }
 
-header nav a{
+header nav a {
   color: white;
   text-decoration: none;
   font-weight: bold;
   padding: 25px 30px;
 }
 
-header nav a:hover, #onpage{
+header nav a:hover, #onpage {
   background-color: #004d99;
 }
 
-h1{
+h1 {
   display: inline-block;
   color: white;
   margin-left: 50px;
-  //TODO fix top margin
 }
 
-.page_content{
+.page_content {
   display: grid;
   grid-template-columns: 50% 50%;
 }
 
-.form{
+.form {
   background: LightGrey;
   margin: 75px auto;
   width: 250px;
@@ -50,15 +49,15 @@ h1{
   border: 2px solid black;
 }
 
-.form form{
+.form form {
   text-align: center;
 }
 
-h1{
+h1 {
   text-align: center;
 }
 
-footer{
+footer {
   background-color: #202020;
   position: fixed;
   bottom: 0;
@@ -68,12 +67,12 @@ footer{
   height: 50px;
 }
 
-footer p{
+footer p {
   margin: 15px auto 0px auto;
   color: white;
 }
 
-.auth-error{
+.auth-error {
   width: 250px;
   height: 55px;
   border-radius: 10px;
